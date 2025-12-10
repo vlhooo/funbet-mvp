@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "../app"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../contexts"
+		},
+		{
+			"path": "../hooks"
+		},
+		{
+			"path": "../lib"
+		},
+		{
+			"path": "../public"
+		},
+		{
+			"path": "../styles"
+		}
+	]
+}
