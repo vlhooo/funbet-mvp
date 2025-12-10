@@ -41,7 +41,7 @@
 
 .dark {
   /* Updated to gray/dark-gray tones instead of blue tones */
-  --background: #1a1a1a;
+  --background: #0a0a0a;
   --foreground: #e5e5e5;
   --card: #242424;
   --card-foreground: #e5e5e5;

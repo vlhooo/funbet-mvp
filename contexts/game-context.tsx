@@ -63,8 +63,8 @@ const GameContext = createContext<GameContextType | undefined>(undefined)
 const INITIAL_BALANCE = 1000
 const Y_MIN = 0
 const Y_MAX = 400
-const CLAMP_MIN = 5
-const CLAMP_MAX = 395
+const CLAMP_MIN = 0
+const CLAMP_MAX = 400
 
 const MIN_MULTIPLIER = 1.10
 const MAX_MULTIPLIER = 2.00
@@ -226,7 +226,12 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
             const betAmount = prev.activeRound.betAmount
 
             let isWon = false
-            if (direction === "DOWN") {
+            const delta = finalPrice - entryPrice
+
+            if (delta === 0) {
+              // Special rule: exact tie is a WIN for both directions
+              isWon = true
+            } else if (direction === "DOWN") {
               isWon = finalPrice < entryPrice
             } else if (direction === "UP") {
               isWon = finalPrice > entryPrice

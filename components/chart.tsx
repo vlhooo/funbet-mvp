@@ -16,8 +16,8 @@ export default function Chart({ visiblePrices, betDirection, entryPrice, isActiv
   const { points, width, height, padding, slotWidth } = useMemo(() => {
     // Fixed layout
     const width = 1000
-    const height = 600
-    const padding = { top: 20, right: 20, bottom: 20, left: 20 }
+    const height = 500
+    const padding = { top: 0, right: 0, bottom: 0, left: 0 }
     
     // 20 columns means 19 segments? Or 20 slots?
     // "Fixed 20 columns". Let's assume 20 points X-coordinates.
@@ -90,7 +90,7 @@ export default function Chart({ visiblePrices, betDirection, entryPrice, isActiv
       width="100%"
       height="100%"
       viewBox={`0 0 ${width} ${height}`}
-      preserveAspectRatio="xMidYMid meet"
+      preserveAspectRatio="none"
       className="w-full h-full select-none"
     >
       <style jsx>{`
@@ -177,7 +177,8 @@ export default function Chart({ visiblePrices, betDirection, entryPrice, isActiv
             opacity={targetOpacity}
             className={`transition-all duration-300 ${ticksRemaining === 0 ? "target-hit-glow" : ""}`}
             style={{ 
-              transition: "x1 0.5s linear, x2 0.5s linear, stroke 0.3s, stroke-width 0.3s, opacity 0.3s"
+              color: ticksRemaining === 0 ? "#eab308" : "#ffffff",
+              transition: "x1 0.5s linear, x2 0.5s linear, stroke 0.3s, stroke-width 0.3s, opacity 0.3s, filter 0.3s"
             }}
           />
           <text
@@ -240,7 +241,7 @@ export default function Chart({ visiblePrices, betDirection, entryPrice, isActiv
         d={pathData} 
         fill="none" 
         stroke="#eab308" 
-        strokeWidth="3" 
+        strokeWidth="2" 
         strokeLinecap="round" 
         strokeLinejoin="round" 
       />

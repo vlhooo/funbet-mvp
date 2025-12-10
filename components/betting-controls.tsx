@@ -100,7 +100,7 @@ export default function BettingControls() {
   }
 
   return (
-    <div className="bg-surface rounded-lg p-6 border border-border h-full flex flex-col overflow-y-auto">
+    <div className="bg-card rounded-lg p-6 border border-border h-full flex flex-col overflow-y-auto">
       <div className="mb-6">
         <input
           type="number"
