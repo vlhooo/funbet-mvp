@@ -3,6 +3,8 @@
 import { useMemo } from "react"
 
 interface ChartProps {
+  width: number
+  height: number
   visiblePrices: number[]
   betDirection: "UP" | "DOWN" | null
   entryPrice: number | null
@@ -12,11 +14,9 @@ interface ChartProps {
   isFrozen: boolean
 }
 
-export default function Chart({ visiblePrices, betDirection, entryPrice, isActive, updatesCount, isWon, isFrozen }: ChartProps) {
-  const { points, width, height, padding, slotWidth } = useMemo(() => {
+export default function Chart({ width, height, visiblePrices, betDirection, entryPrice, isActive, updatesCount, isWon, isFrozen }: ChartProps) {
+  const { points, padding, slotWidth } = useMemo(() => {
     // Fixed layout
-    const width = 1000
-    const height = 500
     const padding = { top: 0, right: 0, bottom: 0, left: 0 }
     
     // 20 columns means 19 segments? Or 20 slots?
@@ -39,12 +39,10 @@ export default function Chart({ visiblePrices, betDirection, entryPrice, isActiv
 
     return {
       points,
-      width,
-      height,
       padding,
       slotWidth
     }
-  }, [visiblePrices])
+  }, [visiblePrices, width, height])
 
   const chartHeight = height - padding.top - padding.bottom
   
@@ -90,7 +88,6 @@ export default function Chart({ visiblePrices, betDirection, entryPrice, isActiv
       width="100%"
       height="100%"
       viewBox={`0 0 ${width} ${height}`}
-      preserveAspectRatio="none"
       className="w-full h-full select-none"
     >
       <style jsx>{`
@@ -230,7 +227,7 @@ export default function Chart({ visiblePrices, betDirection, entryPrice, isActiv
           x2={width - padding.right}
           y2={entryY}
           stroke={betLineColor}
-          strokeWidth="2"
+          strokeWidth="4"
           opacity="0.8"
           className={isActive && updatesCount === 0 ? "entry-line-animate" : ""}
         />
@@ -241,7 +238,7 @@ export default function Chart({ visiblePrices, betDirection, entryPrice, isActiv
         d={pathData} 
         fill="none" 
         stroke="#eab308" 
-        strokeWidth="2" 
+        strokeWidth="4" 
         strokeLinecap="round" 
         strokeLinejoin="round" 
       />

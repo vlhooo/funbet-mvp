@@ -100,8 +100,24 @@ export default function BettingControls() {
   }
 
   return (
-    <div className="bg-card rounded-lg p-6 border border-border h-full flex flex-col overflow-y-auto">
-      <div className="mb-6">
+    <div className="bg-card rounded-lg p-6 border border-border h-full flex flex-col overflow-y-auto relative">
+      {/* Helper Toggle */}
+      <div className="absolute top-2 left-2 z-10">
+        <button
+          onClick={() => setIsHelperEnabled(!isHelperEnabled)}
+          className={`text-xs font-medium px-2 py-1 rounded-md transition-colors flex items-center gap-1 ${
+            isHelperEnabled 
+              ? "bg-purple-500/20 text-purple-300 border border-purple-500/50 hover:bg-purple-500/30" 
+              : "bg-zinc-800 text-zinc-500 border border-zinc-700 hover:text-zinc-400"
+          }`}
+          title="Toggle Prediction Helper"
+        >
+          <Sparkles size={10} className={isHelperEnabled ? "fill-purple-300" : ""} />
+          {isHelperEnabled ? "ON" : "OFF"}
+        </button>
+      </div>
+
+      <div className="mb-6 mt-4">
         <input
           type="number"
           value={betAmount}
@@ -158,12 +174,12 @@ export default function BettingControls() {
               <Sparkles size={10} fill="currentColor" /> Suggested
             </span>
           )}
-          <span>{isRoundActive && gameState.activeRound.betDirection === "UP" ? "..." : "UP"}</span>
           {!isRoundActive && (
-            <span className="text-sm opacity-70 font-medium">
-              x{upMultiplier.toFixed(2)}
+            <span className="text-sm opacity-80 font-medium text-white/80 uppercase">
+              X{upMultiplier.toFixed(2)}
             </span>
           )}
+          <span className="text-lg font-bold">{isRoundActive && gameState.activeRound.betDirection === "UP" ? "..." : "UP"}</span>
         </button>
         <button
           onClick={() => handleBet("DOWN")}
@@ -177,27 +193,12 @@ export default function BettingControls() {
               <Sparkles size={10} fill="currentColor" /> Suggested
             </span>
           )}
-          <span>{isRoundActive && gameState.activeRound.betDirection === "DOWN" ? "..." : "DOWN"}</span>
           {!isRoundActive && (
-            <span className="text-sm opacity-70 font-medium">
-              x{downMultiplier.toFixed(2)}
+            <span className="text-sm opacity-80 font-medium text-white/80 uppercase">
+              X{downMultiplier.toFixed(2)}
             </span>
           )}
-        </button>
-      </div>
-
-      {/* Helper Toggle */}
-      <div className="flex justify-center mb-6">
-        <button
-          onClick={() => setIsHelperEnabled(!isHelperEnabled)}
-          className={`text-xs font-medium px-3 py-1 rounded-full transition-colors flex items-center gap-1.5 ${
-            isHelperEnabled 
-              ? "bg-purple-500/20 text-purple-300 border border-purple-500/50 hover:bg-purple-500/30" 
-              : "bg-zinc-800 text-zinc-500 border border-zinc-700 hover:text-zinc-400"
-          }`}
-        >
-          <Sparkles size={12} className={isHelperEnabled ? "fill-purple-300" : ""} />
-          Helper: {isHelperEnabled ? "ON" : "OFF"}
+          <span className="text-lg font-bold">{isRoundActive && gameState.activeRound.betDirection === "DOWN" ? "..." : "DOWN"}</span>
         </button>
       </div>
 

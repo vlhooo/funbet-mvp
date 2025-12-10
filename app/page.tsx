@@ -11,40 +11,46 @@ function GameContent() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <div className="text-center pt-6 pb-4">
-        <h1 className="text-white font-bold text-2xl">FunBet</h1>
+      <div className="text-center py-2">
+        <h1 className="text-white font-bold text-xl">FunBet</h1>
       </div>
 
-      <div className="w-full max-w-7xl mx-auto py-6 md:py-8">
-        <div className="flex justify-between items-center mb-4 text-sm md:text-base px-4">
-          {/* Left Side: Stats */}
-          <div className="flex gap-4 md:gap-6 flex-wrap">
+      <div className="w-full max-w-7xl mx-auto py-4 md:py-6">
+        {/* Stats & Bet Info Container */}
+        <div className="flex flex-col gap-1 px-4 mb-4">
+          
+          {/* Row 1: Balance (Left) & Active Bet (Right) */}
+          <div className="flex justify-between items-center text-sm md:text-base">
             <div>
               <span className="text-muted-foreground">Balance:</span>
               <span className="font-bold ml-2">${gameState.balance}</span>
             </div>
-            <div>
-              <span className="text-muted-foreground">Wins:</span>
-              <span className="font-bold ml-2">{gameState.wins}</span>
-            </div>
-            <div>
-              <span className="text-muted-foreground">Losses:</span>
-              <span className="font-bold ml-2">{gameState.losses}</span>
+
+            {/* Active Bet Info */}
+            <div className={`flex items-center gap-2 transition-all duration-300 ${activeRound.isActive ? "text-yellow-500 animate-pulse" : "text-muted-foreground"}`}>
+              <span className={!activeRound.isActive ? "text-muted-foreground" : ""}>Bet:</span>
+              <span className="font-bold">
+                ${activeRound.betAmount > 0 ? activeRound.betAmount : 0} • x{activeRound.betMultiplier ? activeRound.betMultiplier.toFixed(2) : "0.00"}
+              </span>
+              {/* Max Bet Indicator */}
+              {activeRound.isActive && (activeRound.isMaxBetRound || activeRound.isAllIn) && (
+                <span className="ml-1 text-red-500 font-extrabold animate-[pulse_0.5s_ease-in-out_infinite]">
+                  (x2)
+                </span>
+              )}
             </div>
           </div>
 
-          {/* Right Side: Bet Info */}
-          <div className={`flex items-center gap-2 transition-all duration-300 ${activeRound.isActive ? "text-yellow-500 animate-pulse" : "text-muted-foreground"}`}>
-            <span className={!activeRound.isActive ? "text-muted-foreground" : ""}>Bet:</span>
-            <span className="font-bold">
-              ${activeRound.betAmount > 0 ? activeRound.betAmount : 0} • x{activeRound.betMultiplier ? activeRound.betMultiplier.toFixed(2) : "0.00"}
-            </span>
-            {/* Max Bet Indicator */}
-            {activeRound.isActive && (activeRound.isMaxBetRound || activeRound.isAllIn) && (
-              <span className="ml-1 text-red-500 font-extrabold animate-[pulse_0.5s_ease-in-out_infinite]">
-                (x2)
-              </span>
-            )}
+          {/* Row 2: Wins & Losses (Left aligned or Centered - using left for clean hierarchy) */}
+          <div className="flex gap-4 text-xs md:text-sm text-muted-foreground">
+            <div>
+              <span>Wins:</span>
+              <span className="font-bold ml-1 text-green-500">{gameState.wins}</span>
+            </div>
+            <div>
+              <span>Losses:</span>
+              <span className="font-bold ml-1 text-red-500">{gameState.losses}</span>
+            </div>
           </div>
         </div>
 
